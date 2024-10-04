@@ -1,0 +1,44 @@
+<div *ngIf="displayBanner" class="fixed bottom-0 left-0 right-0 bg-gray-700 text-white p-5 border-t border-gray-300 shadow-md">
+      <div class="flex flex-col md:flex-row justify-between items-center max-w-4xl mx-auto">
+        <p class="text-sm px-4 mr-2 mb-4 md:mb-0">
+          Utilizziamo i cookie per offrirti un’esperienza personalizzata e annunci su misura. Condividiamo informazioni con i nostri partner per analisi dati, pubblicità e social. Puoi accettare tutti i cookie o solo alcuni.  <a href="#" (click)="toggleCookieInfo(); $event.preventDefault()" class="underline">Leggi di più</a>
+        </p>
+        <div class="flex space-x-2">
+          <button (click)="acceptCookies()" class="bg-gray-100 hover:bg-gray-700 text-gray-800 hover:text-white py-2 px-4 rounded-full">
+              Accetta
+            </button>
+            <button (click)="rejectCookies()" class="bg-gray-600 hover:bg-gray-700 text-white whitespace-nowrap py-2 px-4 rounded-full">
+              Rifiuta e chiudi
+            </button>
+            <button (click)="customizeCookies()" class="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-full">
+              Personalizza
+            </button>
+        </div>
+      </div>
+  </div>
+  <div class="absolute py-56 inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center overflow-y-auto" *ngIf="showCookieInfo" [ngClass]="{'pb-48': displayBanner}">
+    <div class="bg-white p-5 rounded-lg max-w3xl mx-5 text-black max-h-screen overflow-y-auto">
+      <h1 class="text-l font-bold">Informativa sull'uso dei cookie</h1>
+        <p class="mb-2">Questo sito utilizza i cookie per migliorare l'esperienza di navigazione e per raccogliere informazioni sull'uso del sito da parte degli utenti. Di seguito trovi maggiori informazioni sui cookie, su come li utilizziamo e su come puoi gestirli.</p>
+      <h1 class="text-xl font-bold">Cosa sono i cookie?</h1>
+        <p class="mb-2">I cookie sono piccoli file di testo che i siti web inviano e memorizzano sul tuo dispositivo (computer, smartphone, tablet) durante la navigazione. I cookie sono utilizzati per migliorare l'usabilità e le prestazioni del sito, per ricordare le tue preferenze e per offrire contenuti personalizzati.</p>
+      <h1 class="text-xl font-bold">Tipi di cookie utilizzati</h1>
+        <p class="mb-2">Cookie tecnici: Questi cookie sono necessari per il corretto funzionamento del sito e consentono di navigare e utilizzare le funzionalità di base. Senza questi cookie, alcuni servizi potrebbero non funzionare correttamente.</p>
+        <p class="mb-2">Cookie di performance: Questi cookie raccolgono informazioni anonime su come gli utenti utilizzano il sito, come le pagine visitate e gli eventuali errori riscontrati. I dati raccolti servono a migliorare l'esperienza di navigazione.</p>
+        <p class="mb-2">Cookie di funzionalità: Questi cookie permettono al sito di ricordare le scelte effettuate dagli utenti (come la lingua o l'area geografica) e di fornire funzionalità migliorate e personalizzate.</p>
+        <p class="mb-2">Cookie di profilazione: Questi cookie tracciano la navigazione dell'utente al fine di creare profili relativi alle sue preferenze, abitudini o scelte, e consentire l'invio di messaggi pubblicitari personalizzati.</p>
+        <p class="mb-2">Cookie di terze parti: Alcuni cookie possono essere installati da servizi di terze parti, come social media o servizi di analisi. Questi cookie sono gestiti direttamente da terze parti e potrebbero essere utilizzati per attività di profilazione.</p>
+      
+        <h1 class="text-xl font-bold">Gestione dei cookie</h1>
+      <p class="mb-2">Puoi decidere di consentire o rifiutare l'installazione dei cookie utilizzando le impostazioni del tuo browser. La maggior parte dei browser permette di accettare o rifiutare tutti i cookie, accettare solo determinati tipi di cookie o essere avvisato ogni volta che un sito tenta di installare un cookie.</p>
+      <p class="mb-2">Per maggiori informazioni su come gestire o disabilitare i cookie sul tuo browser, puoi consultare i seguenti link:</p>
+      <a class="underline" href="https://support.google.com/chrome/answer/95647?hl=it&co=GENIE.Platform%3DAndroid" target="_blank">Google Chrome</a><br>
+      <a class="underline" href="https://support.mozilla.org/it/kb/Eliminare%20i%20cookie#:~:text=Eliminare%20tutti%20i%20cookie%2C%20i%20dati%20dei%20siti%20web%20e%20la%20cache,-Sulla%20barra%20dei&text=pulsante%20dei%20menu-,e%20selezionare%20Impostazioni.,dialogo%20di%20eliminazione%20dei%20dati." target="_blank">Mozilla Firefox</a><br>
+      <a class="underline" href="https://support.apple.com/it-it/guide/safari/ibrw850f6c51/mac" target="_blank">Safari</a><br>
+      <a class="underline" href="https://support.microsoft.com/it-it/windows/gestire-i-cookie-in-microsoft-edge-visualizzare-consentire-bloccare-eliminare-e-usare-168dab11-0753-043d-7c16-ede5947fc64d#:~:text=tutti%20i%20cookie-,Apri%20il%20browser%20Edge%2C%20seleziona%20Impostazioni%20e%20altro%20nell'angolo,Cancella%20dati%20delle%20esplorazioni%20ora." target="_blank">Microsoft Edge</a><br>
+      <p class="mt-2">Modifiche all'informativa sui cookie
+      Ci riserviamo il diritto di modificare questa informativa sui cookie in qualsiasi momento. Eventuali modifiche saranno pubblicate su questa pagina. Ti invitiamo a consultare periodicamente questa informativa per rimanere aggiornato.</p>
+
+      <button (click)="toggleCookieInfo()" class="bg-gray-600 hover:bg-gray-700 text-white my-4 py-2 px-4 rounded-full">Chiudi</button>
+    </div>
+  </div>
