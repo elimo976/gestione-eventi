@@ -1,0 +1,52 @@
+<section class="hero-section bg-petrol-light py-6">
+  <div class="container mx-auto">
+    <h1 class="text-center text-white text-4xl mb-8">Scopri gli Eventi in Evidenza</h1>
+    
+    <!-- Griglia a scacchiera 4x2 -->
+    <div class="grid grid-cols-4 grid-rows-2 gap-1">
+      <!-- Primo quadrante: Eventi Sportivi -->
+      <div class="text-gray-900 rounded-lg">
+        <app-events-preview 
+          [images]="['assets/images/image1.jpg', 'assets/images/image2.jpg', 'assets/images/image3.jpg']"
+          [index]="0"> <!-- Indice 0 -->
+        </app-events-preview>
+      </div>
+
+      <!-- Secondo quadrante: Vuoto -->
+      <div class="bg-transparent"></div>
+
+      <!-- Terzo quadrante: Eventi Rilevanti -->
+      <div class="text-gray-900 rounded-lg">
+        <app-events-preview 
+          [images]="['assets/images/image4.jpg', 'assets/images/image5.jpg', 'assets/images/image1.jpg']"
+          [index]="1"> <!-- Indice 1 -->
+        </app-events-preview>
+      </div>
+
+      <!-- Quarto quadrante: Vuoto -->
+      <div class="bg-transparent"></div>
+
+      <!-- Quinto quadrante: Vuoto -->
+      <div class="bg-transparent"></div>
+
+      <!-- Sesto quadrante: Nuovi Eventi -->
+      <div class="text-gray-900 rounded-lg">
+        <app-events-preview 
+          [images]="['assets/images/image2.jpg', 'assets/images/image3.jpg', 'assets/images/image4.jpg']"
+          [index]="2"> <!-- Indice 2 -->
+        </app-events-preview>
+      </div>
+
+      <!-- Settimo quadrante: Vuoto -->
+      <div class="bg-transparent"></div>
+
+      <!-- Ottavo quadrante: In Esaurimento -->
+      <div class="text-gray-900 rounded-lg">
+        <app-events-preview 
+          [images]="['assets/images/image5.jpg', 'assets/images/image1.jpg', 'assets/images/image2.jpg']"
+          [index]="3"> <!-- Indice 3 -->
+        </app-events-preview>
+      </div>
+    </div>
+  </div>
+</section>

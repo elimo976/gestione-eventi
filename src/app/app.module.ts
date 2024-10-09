@@ -7,6 +7,8 @@ import { HomeComponent } from './components/home/home.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { HeaderComponent } from './components/header/header.component';
 import { CookieConsentComponent } from './components/cookie-consent/cookie-consent.component';
+import { HeroComponent } from './components/hero/hero.component';
+import { EventsPreviewComponent } from './components/events-preview/events-preview.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { CookieConsentComponent } from './components/cookie-consent/cookie-conse
     HomeComponent,
     FaqComponent,
     HeaderComponent,
-    CookieConsentComponent
+    CookieConsentComponent,
+    HeroComponent,
+    EventsPreviewComponent
   ],
   imports: [
     BrowserModule,
