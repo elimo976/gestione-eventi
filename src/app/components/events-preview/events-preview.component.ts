@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild, ElementRef, OnInit } from '@angular/core';
 import gsap from 'gsap';
 import { EventRotationService } from '../../services/event-rotation.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-events-preview',
@@ -13,8 +14,11 @@ export class EventsPreviewComponent implements OnInit {
 
   currentImageIndex: number = 0;
   currentImage: string = '';
+  isHovered: boolean = false;
 
   @ViewChild('eventImage') eventImage!: ElementRef<HTMLImageElement>;
+
+  private rotationSubscription!: Subscription;
 
   constructor(private rotationService: EventRotationService) {}
 
@@ -23,8 +27,8 @@ export class EventsPreviewComponent implements OnInit {
       this.currentImage = this.images[this.currentImageIndex];
 
       // Iscriviti al servizio di rotazione per sapere quando questa anteprima deve girare
-      this.rotationService.activeIndex$.subscribe((activeIndex: number) => {
-        if (activeIndex === this.index) {
+      this.rotationSubscription = this.rotationService.activeIndex$.subscribe((activeIndex: number) => {
+        if (activeIndex === this.index && !this.isHovered) {
           this.startImageRotation();
         }
       });
@@ -38,6 +42,9 @@ export class EventsPreviewComponent implements OnInit {
 
   changeImage(nextImageIndex: number): void {
     const currentImageElement = this.eventImage.nativeElement;
+
+    // Interrompi animazioni precedenti se esistenti
+    gsap.killTweensOf(currentImageElement);
 
     // Effetto di rotazione utilizzando GSAP
     gsap.to(currentImageElement, {
@@ -59,5 +66,25 @@ export class EventsPreviewComponent implements OnInit {
         });
       }
     });
+  }
+
+  onMouseEnter() {
+    this.isHovered = true;
+    this.rotationService.pauseRotation();
+    gsap.killTweensOf(this.eventImage.nativeElement); // Ferma l'animazione in corsa
+    gsap.set(this.eventImage.nativeElement, { clearProps: "all" }); // Pulisce eventuali proprietà precedenti
+  }
+
+  onMouseLeave() {
+    this.isHovered = false;
+    this.rotationService.resumeRotation();
+    this.startImageRotation();
+  }
+
+  ngOnDestroy(): void {
+    // Cleanup della sottoscrizione
+    if (this.rotationSubscription) {
+      this.rotationSubscription.unsubscribe();
+    }
   }
 }

@@ -1,51 +1,56 @@
 <section class="hero-section bg-petrol-light py-6">
   <div class="container mx-auto">
-    <h1 class="text-center text-white text-4xl mb-8">Scopri gli Eventi in Evidenza</h1>
+    <h1 class="text-center text-white text-xl mb-8">Scopri gli Eventi in Primo Piano</h1>
     
-    <!-- Griglia a scacchiera 4x2 -->
-    <div class="grid grid-cols-4 grid-rows-2 gap-1">
-      <!-- Primo quadrante: Eventi Sportivi -->
-      <div class="text-gray-900 rounded-lg">
+    <!-- Griglia responsive -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-0 md:gap-2 lg:gap-4">
+      
+      <!-- Primo quadrante: Esplora per Categoria -->
+      <div class="text-gray-900 rounded-lg relative overflow-hidden">
+        <app-events-preview
+          [images]="['assets/images/sport.jpg', 'assets/images/cirque-du-soleil.jpg', 'assets/images/teatro.jpg']"
+          [index]="0"> 
+        </app-events-preview>
+        <div class="overlay-text bg-gray-400 bg-opacity-80 w-full py-2 text-center">Esplora per Categoria</div>
+      </div>
+
+      <!-- Secondo quadrante vuoto (nascosto su tablet e mobile) -->
+      <div class="bg-transparent hidden lg:block"></div>
+
+      <!-- Terzo quadrante: Eventi in Evidenza -->
+      <div class="text-gray-900 rounded-lg relative overflow-hidden">
         <app-events-preview 
           [images]="['assets/images/image1.jpg', 'assets/images/image2.jpg', 'assets/images/image3.jpg']"
-          [index]="0"> <!-- Indice 0 -->
+          [index]="1"> 
         </app-events-preview>
+        <div class="overlay-text bg-gray-400 bg-opacity-80 w-full py-2 text-center">Eventi in Evidenza</div>
       </div>
 
-      <!-- Secondo quadrante: Vuoto -->
-      <div class="bg-transparent"></div>
+      <!-- Quarto quadrante vuoto (nascosto su tablet e mobile) -->
+      <div class="bg-transparent hidden lg:block"></div>
 
-      <!-- Terzo quadrante: Eventi Rilevanti -->
-      <div class="text-gray-900 rounded-lg">
+      <!-- Quinto quadrante vuoto (nascosto su tablet e mobile) -->
+      <div class="bg-transparent hidden lg:block"></div>
+
+      <!-- Sesto quadrante: Scopri le Novità -->
+      <div class="text-gray-900 rounded-lg relative overflow-hidden">
         <app-events-preview 
-          [images]="['assets/images/image4.jpg', 'assets/images/image5.jpg', 'assets/images/image1.jpg']"
-          [index]="1"> <!-- Indice 1 -->
+          [images]="['assets/images/band.jpg', 'assets/images/image4.jpg', 'assets/images/image5.jpg']"
+          [index]="2"> 
         </app-events-preview>
+        <div class="overlay-text bg-gray-400 bg-opacity-80 w-full py-2 text-center">Scopri le Novità</div>
       </div>
 
-      <!-- Quarto quadrante: Vuoto -->
-      <div class="bg-transparent"></div>
+      <!-- Settimo quadrante vuoto (nascosto su tablet e mobile) -->
+      <div class="bg-transparent hidden lg:block"></div>
 
-      <!-- Quinto quadrante: Vuoto -->
-      <div class="bg-transparent"></div>
-
-      <!-- Sesto quadrante: Nuovi Eventi -->
-      <div class="text-gray-900 rounded-lg">
+      <!-- Ottavo quadrante: Ultimi Biglietti -->
+      <div class="text-gray-900 rounded-lg relative overflow-hidden">
         <app-events-preview 
-          [images]="['assets/images/image2.jpg', 'assets/images/image3.jpg', 'assets/images/image4.jpg']"
-          [index]="2"> <!-- Indice 2 -->
+          [images]="['assets/images/concerto.jpg', 'assets/images/image5.jpg', 'assets/images/image1.jpg']"
+          [index]="3"> 
         </app-events-preview>
-      </div>
-
-      <!-- Settimo quadrante: Vuoto -->
-      <div class="bg-transparent"></div>
-
-      <!-- Ottavo quadrante: In Esaurimento -->
-      <div class="text-gray-900 rounded-lg">
-        <app-events-preview 
-          [images]="['assets/images/image5.jpg', 'assets/images/image1.jpg', 'assets/images/image2.jpg']"
-          [index]="3"> <!-- Indice 3 -->
-        </app-events-preview>
+        <div class="overlay-text bg-gray-400 bg-opacity-80 w-full py-2 text-center">Ultimi Biglietti</div>
       </div>
     </div>
   </div>

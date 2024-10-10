@@ -1,0 +1,26 @@
+/* Stile per l'overlay di testo */
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+  }
+  
+  /* Effetto hover: mostra il testo */
+  .text-gray-900:hover .overlay-text {
+    opacity: 1;
+    transform: translate(-50%, -40%);
+  }
+  
+  /* Effetto leggero di ingrandimento dell'immagine */
+  .text-gray-900:hover img {
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
+  }
+  

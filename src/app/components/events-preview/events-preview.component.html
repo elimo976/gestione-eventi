@@ -1,5 +1,5 @@
 <div class="text-center">
-  <div class="event-image-container">
+  <div class="event-image-container" (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()">
     <img #eventImage [src]="images[currentImageIndex]" alt="Event image" class="event-image w-full h-64 object-cover rounded-lg" />
   </div>
 </div>
