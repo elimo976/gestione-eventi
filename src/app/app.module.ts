@@ -12,6 +12,10 @@ import { EventsPreviewComponent } from './components/events-preview/events-previ
 import { FooterComponent } from './components/footer/footer.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faXTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EventsModule } from './events/events.module';
 
 @NgModule({
   declarations: [
@@ -27,13 +31,16 @@ import { faFacebookF, faXTwitter, faInstagram, faLinkedinIn } from '@fortawesome
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    EventsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
   constructor(library: FaIconLibrary) {
-    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn);
+    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight);
   }
 }
