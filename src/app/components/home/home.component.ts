@@ -12,7 +12,7 @@ export class HomeComponent {
   constructor(private searchEventsService: SearchEventsService) {}
 
   ngOnInit(): void {
-    // Sottoscrivi ai cambiamenti della parola chiave
+    // Sottoscrizione ai cambiamenti della parola chiave
     this.searchEventsService.keyword$.subscribe(keyword => {
       // console.log('Keyword changed:', keyword);
       this.keyword = keyword;

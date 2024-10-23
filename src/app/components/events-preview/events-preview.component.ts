@@ -26,7 +26,7 @@ export class EventsPreviewComponent implements OnInit {
     if (this.images && this.images.length > 0) {
       this.currentImage = this.images[this.currentImageIndex];
 
-      // Iscriviti al servizio di rotazione per sapere quando questa anteprima deve girare
+      // Iscrizione al servizio di rotazione per sapere quando questa anteprima deve girare
       this.rotationSubscription = this.rotationService.activeIndex$.subscribe((activeIndex: number) => {
         if (activeIndex === this.index && !this.isHovered) {
           this.startImageRotation();
@@ -55,7 +55,7 @@ export class EventsPreviewComponent implements OnInit {
         this.currentImageIndex = nextImageIndex;
         this.currentImage = this.images[this.currentImageIndex];
 
-        // Prepara il nuovo elemento immagine
+        // Preparazione il nuovo elemento immagine
         gsap.set(currentImageElement, { rotateY: -180, opacity: 0 });
 
         // Riporta l'immagine nella posizione iniziale e ripristina l'opacità
