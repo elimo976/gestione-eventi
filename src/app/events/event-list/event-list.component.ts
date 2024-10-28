@@ -16,7 +16,7 @@ export class EventListComponent implements OnInit {
   events: Event[] = [];
 
   constructor(
-    private eventsService: EventsService,
+    public eventsService: EventsService,
     private searchEventsService: SearchEventsService,
     private router: Router
   ) {}
@@ -90,11 +90,7 @@ export class EventListComponent implements OnInit {
   }
 
   goToEventDetail(eventId: string) {
-    this.router.navigateByUrl(`/event-detail/${eventId}`);
+    this.router.navigateByUrl(`/events/event-detail/${eventId}`);
     console.log("Hai cliccato su:",eventId)
-  }
-  
-  isLargeScreen(): boolean {
-    return window.innerWidth > 900; 
   }
 }

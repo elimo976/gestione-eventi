@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { adminGuard } from './auth/admin.guard';
+import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'under-construction', component: UnderCostructionComponent },
   {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule),

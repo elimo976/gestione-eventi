@@ -16,6 +16,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventsModule } from './events/events.module';
+import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { EventsModule } from './events/events.module';
     CookieConsentComponent,
     HeroComponent,
     EventsPreviewComponent,
-    FooterComponent
+    FooterComponent,
+    UnderCostructionComponent,
   ],
   imports: [
     BrowserModule,

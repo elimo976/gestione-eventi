@@ -21,6 +21,10 @@ export class EventsService {
         return this.http.get<Event[]>(this.apiUrl);
     }
 
+    getEventById(eventId: string): Observable<Event> {
+        return this.http.get<Event>(`${this.apiUrl}/${eventId}`);
+    }
+
     searchEvents(keyword: string): Observable<Event[]> {
         return this.http.get<Event[]>(`${this.apiUrl}/search?keyword=${keyword}`);
     }
@@ -28,4 +32,8 @@ export class EventsService {
     populateDatabase(countryCode: string): Observable<any> {
         return this.http.get(`${this.apiUrl}/populate?countryCode=${countryCode}`);
     }
+
+    isLargeScreen(): boolean {
+        return window.innerWidth > 900; 
+      }
 }
