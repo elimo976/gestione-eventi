@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SearchEventsService } from '../../services/search-events.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class HeaderComponent {
   isMenuOpen: boolean = false;
   keyword: string = '';
-  searchForm?: FormGroup;
 
   constructor(
     private router: Router,
@@ -21,11 +20,7 @@ export class HeaderComponent {
     private fb: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-    this.searchForm = this.fb.group({
-      keyword: ['']
-    });
-  }
+  keywordControl = new FormControl('');
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -44,5 +39,14 @@ export class HeaderComponent {
     // console.log('Keyword changed:', input.value);
     this.searchEventsService.setKeyword(input.value);
     
+    // Reindirizza alla home se la chiave di ricerca è inserita
+    if(input.value.length > 0) {
+      this.router.navigateByUrl('/');
+    }
+  }
+
+  clearInput() {
+    this.keywordControl.setValue('');
+    this.searchEventsService.setKeyword('');
   }
 }

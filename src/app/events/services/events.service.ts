@@ -1,4 +1,3 @@
-// services/event.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -29,8 +28,8 @@ export class EventsService {
         return this.http.get<Event[]>(`${this.apiUrl}/search?keyword=${keyword}`);
     }
 
-    populateDatabase(countryCode: string): Observable<any> {
-        return this.http.get(`${this.apiUrl}/populate?countryCode=${countryCode}`);
+    populateDatabase(countryCodes: string[]): Observable<any> {
+        return this.http.post(`${this.apiUrl}/populate-europe`, { countryCodes });
     }
 
     isLargeScreen(): boolean {
