@@ -1,11 +1,28 @@
-<!-- Mostra app-hero e il messaggio di avviso solo se non ci sono risultati -->
-<ng-container *ngIf="!hasResults">
-    <p *ngIf="keyword && keyword.length > 0" 
-        class="text-center text-gray-600 p-6 bg-gray-200 border border-gray-300 shadow-sm">
-        Nessun risultato trovato per "<span class="font-semibold text-gray-800">{{ keyword }}</span>"
-    </p>
-    <app-hero></app-hero>
+<!-- Spinner di caricamento -->
+<ng-container *ngIf="isLoading">
+  <div class="flex justify-center items-center p-6">
+      <div class="relative w-12 h-12">
+          <!-- Cerchio esterno con gradiente -->
+          <div class="absolute top-0 left-0 w-full h-full border-4 rounded-full animate-spin"
+               style="border-image: linear-gradient(to right, #004d4d, #00796b, #e0c64f) 1; border-width: 4px;">
+          </div>
+          <!-- Cerchio interno con colore singolo -->
+          <div class="absolute top-0 left-0 w-full h-full border-4 border-petrol border-t-transparent rounded-full animate-spin"
+               style="animation-duration: 1s;">
+          </div>
+      </div>
+  </div>
 </ng-container>
-  <!-- Mostra app-event-list solo se ci sono risultati -->
-<app-event-list *ngIf="hasResults"></app-event-list>
-  
+
+<!-- Messaggio di 'Nessun risultato' se la ricerca è completa ma senza risultati -->
+<ng-container *ngIf="!isLoading && !hasResults">
+  <p *ngIf="keyword && keyword.length > 0" 
+     class="text-center text-gray-600 p-6 bg-gray-200 border border-gray-300 shadow-sm">
+      Nessun risultato trovato per "<span class="font-semibold text-gray-800">{{ keyword }}</span>"
+  </p>
+  <app-hero></app-hero>
+</ng-container>
+
+<!-- Lista eventi se ci sono risultati -->
+<app-event-list *ngIf="!isLoading && hasResults"></app-event-list>
+

@@ -6,9 +6,10 @@ import { SearchEventsService } from '../../services/search-events.service';
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss'
   })
-  export class HomeComponent implements OnInit {
+  export class HomeComponent {
     keyword = '';
-    hasResults = true;  // Valore predefinito per la visualizzazione
+    isLoading = true;
+    hasResults = false; 
   
     constructor(private searchEventsService: SearchEventsService) {}
   
@@ -21,9 +22,15 @@ import { SearchEventsService } from '../../services/search-events.service';
     }
   
     updateResults() {
-      // Utilizza il servizio di ricerca e aggiorna `hasResults` in base alla risposta
+      // Imposta isLoading a true per mostrare lo spinner
+      this.isLoading = true;
+  
+      // Chiama il servizio di ricerca
       this.searchEventsService.searchEvents(this.keyword).subscribe(results => {
         this.hasResults = results.length > 0;
+        
+        // Imposta isLoading a false una volta terminato il caricamento
+        this.isLoading = false;
       });
     }
   }
