@@ -1,1 +1,129 @@
-<p>register works!</p>
+<app-toast *ngIf="showToast" [message]="toastMessage"></app-toast>
+<div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-petrol-dark to-gray-100">
+    <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full transform hover:scale-105 transition-transform duration-300">
+        <div class="text-center mb-6">
+            <h2 class="text-3xl font-bold text-petrol-dark mb-1">Crea un account</h2>
+            <p class="text-sm text-petrol-light">Registrati per iniziare</p>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="space-y-4 mb-6">
+                <div class="relative w-full mb-6">
+                    <label for="first-name" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Nome</label>
+                    <input
+                        type="text"
+                        id="first-name"
+                        placeholder="Inserisci il tuo nome"
+                        formControlName="firstName"
+                        class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+                    />
+                    <!-- Messaggio di errore per il nome -->
+                    <div *ngIf="formControls['firstName'].errors?.['required'] && formControls['firstName'].touched" class="mt-2 text-red-600 text-sm">
+                        Il nome è richiesto.
+                    </div>
+                </div>
+                <div class="relative w-full">
+                    <label for="last-name" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Cognome</label>
+                    <input
+                        type="text"
+                        id="last-name"
+                        placeholder="Inserisci il tuo cognome"
+                        formControlName="lastName"
+                        class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+                    />
+                    <!-- Messaggio di errore per il cognome -->
+                    <div *ngIf="formControls['lastName'].errors?.['required'] && formControls['lastName'].touched" class="mt-2 text-red-600 text-sm">
+                        Il cognome è richiesto.
+                    </div>
+                </div>
+            </div>
+            <div class="relative mb-6">
+                <label for="email" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Email</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Inserisci la tua email"
+                    formControlName="email"
+                    class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+                />
+                <!-- Messaggio di errore per l'email -->
+                <div *ngIf="formControls['email'].errors?.['required'] && formControls['email'].touched" class="mt-2 text-red-600 text-sm">
+                    L'email è richiesta.
+                </div>
+                <div *ngIf="formControls['email'].errors?.['email'] && formControls['email'].touched" class="mt-2 text-red-600 text-sm">
+                    Inserisci un'email valida.
+                </div>
+            </div>
+            <div class="relative mb-6">
+                <label for="password" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Password</label>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Crea una password"
+                    formControlName="password"
+                    class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+                />
+                <!-- Messaggio di errore per la password -->
+                <div *ngIf="formControls['password'].errors?.['required'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
+                    La password è richiesta.
+                </div>
+                <div *ngIf="formControls['password'].errors?.['passwordStrength'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
+                    La password deve contenere almeno 8 caratteri, una lettera maiuscola, un numero e un carattere speciale.
+                </div>
+                
+            </div>
+            <div class="relative mb-8">
+                <label for="confirm-password" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Conferma Password</label>
+                <input
+                    type="password"
+                    id="confirm-password"
+                    placeholder="Conferma la tua password"
+                    formControlName="confirmPassword"
+                    class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+                />
+                <!-- Messaggio di errore per la conferma della password -->
+                <div *ngIf="registerForm.hasError('mismatch') && formControls['confirmPassword'].touched" class="mt-2 text-red-600 text-sm">
+                    Le password non corrispondono.
+                </div>
+            </div>
+            <div class="flex items-center mb-6">
+                <span class="mr-2 text-petrol-dark">Ruolo:</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input 
+                        type="checkbox" 
+                        formControlName="role" 
+                        class="sr-only" 
+                        (click)="toggleRole()" 
+                    />
+                    <div class="w-11 h-6 bg-petrol rounded-full transition duration-200 ease-in-out" [class.bg-petrol-dark]="registerForm.get('role')!.value">
+                        <span 
+                            class="absolute left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300" 
+                            [ngClass]="{'translate-x-5': registerForm.get('role')!.value}">
+                        </span>
+                    </div>
+                    <span class="ml-3 text-sm text-petrol-dark">{{ registerForm.get('role')!.value ? 'Admin' : 'User' }}</span>
+                </label>
+            </div>
+            <div class="mb-6 text-sm">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" formControlName="termsAccepted" class="form-checkbox text-petrol focus:ring-petrol-dark rounded" />
+                    <span class="ml-2 text-petrol-dark">Accetto i <a href="#" class="underline hover:text-petrol">termini e condizioni</a></span>
+                </label>
+                <!-- Messaggio di errore -->
+                <div *ngIf="registerForm.get('termsAccepted')?.errors?.['requiredTrue'] && registerForm.get('termsAccepted')?.touched" class="mt-2 text-red-600 text-sm">
+                    Devi accettare i termini e le condizioni.
+                </div>
+            </div>
+       
+            <button
+                type="submit"
+                class="w-full bg-petrol text-white py-2 rounded-lg font-semibold shadow-md hover:bg-petrol-dark transform transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-petrol-light"
+            >
+                Registrati
+            </button>
+        </form>
+        <p class="mt-6 text-center text-sm text-petrol-dark">
+            Hai già un account?
+            <a [routerLink]="['/user/login']" class="text-petrol font-semibold hover:underline">Accedi</a>
+        </p>
+    </div>
+</div>

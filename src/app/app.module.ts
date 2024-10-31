@@ -1,5 +1,7 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -36,13 +38,17 @@ import { UnderCostructionComponent } from './components/under-costruction/under-
     FontAwesomeModule,
     HttpClientModule,
     ReactiveFormsModule,
-    EventsModule
+    EventsModule,
   ],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'it-IT'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { 
   constructor(library: FaIconLibrary) {
     library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight);
+
+    registerLocaleData(localeIt, 'it');
   }
 }
