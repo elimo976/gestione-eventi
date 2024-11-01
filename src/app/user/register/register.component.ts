@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { passwordMatchValidator } from '../../shared/validators/password-match.validator';
 import { passwordStrengthValidator } from '../../shared/validators/password-validator';
+import { requiredTrueValidator } from '../../shared/validators/checkbox.validator';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { RegisterUserDto } from '../dto/user.dto';
@@ -13,7 +14,6 @@ import { RegisterUserDto } from '../dto/user.dto';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  // submitted = false;
   toastMessage: string ='';
   showToast: boolean = false;
 
@@ -28,7 +28,7 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(8), passwordStrengthValidator()]),
       confirmPassword: new FormControl('', Validators.required),
       role: new FormControl(false),
-      termsAccepted: new FormControl(false, Validators.requiredTrue) 
+      termsAccepted: new FormControl(false, requiredTrueValidator()) 
     }, { validators: passwordMatchValidator() }); // Passa la funzione del validatore
   }
 
@@ -43,13 +43,14 @@ export class RegisterComponent {
   }
 
   onSubmit() {
-    // this.submitted = true;
+    this.registerForm.markAllAsTouched();
+    this.registerForm.get('termsAccepted')?.markAsTouched();
     if (this.registerForm.valid) {
       const { confirmPassword, termsAccepted, ...formData } = this.registerForm.value;
       const user: RegisterUserDto = { ...formData, isAdmin: this.registerForm.value.role };
   
       this.authService.register(user).subscribe({
-        next: (response) => {
+        next: () => {
           if (this.registerForm.value.role) {
             this.toastMessage = 'La registrazione deve essere approvata da un admin già registrato.';
           } else {
@@ -66,7 +67,8 @@ export class RegisterComponent {
         }
       });
     } else {
-      console.error('Form non valido', this.registerForm.errors);
+      console.error('Form non valido', this.registerForm.errors);('requiredTrue');
+      console.log('touched', this.registerForm.get('termsAccepted')?.touched);
       this.toastMessage = 'Ci sono errori nel modulo. Controlla di aver compilato tutti i campi.';
       this.showToast = true;
     }

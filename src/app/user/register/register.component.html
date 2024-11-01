@@ -109,11 +109,10 @@
                     <span class="ml-2 text-petrol-dark">Accetto i <a href="#" class="underline hover:text-petrol">termini e condizioni</a></span>
                 </label>
                 <!-- Messaggio di errore -->
-                <div *ngIf="registerForm.get('termsAccepted')?.errors?.['requiredTrue'] && registerForm.get('termsAccepted')?.touched" class="mt-2 text-red-600 text-sm">
+                <div *ngIf="formControls['termsAccepted'].errors?.['requiredTrue'] && registerForm.get('termsAccepted')?.touched" class="mt-2 text-red-600 text-sm">
                     Devi accettare i termini e le condizioni.
                 </div>
             </div>
-       
             <button
                 type="submit"
                 class="w-full bg-petrol text-white py-2 rounded-lg font-semibold shadow-md hover:bg-petrol-dark transform transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-petrol-light"
