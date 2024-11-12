@@ -1,18 +1,22 @@
-import { inject } from '@angular/core';
-import { CanActivateFn } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router'
 
-export const adminGuard: CanActivateFn = (route, state) => {
-  // La mia Guard non essendo una classe, bensì una funzione, non mi permette di iniettare le dipendenze tramite costruttore, quindi uso 'inject' per ovviare al problema.
-  const authService = inject(AuthService);
-  const router = inject(Router);
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
 
-  // Verifica se l'utente è un amministratore
-  if (authService.isAdmin()) {
-    return true;
-  } else {
-    router.navigate(['/']);
-    return false;
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    // Verifica se l'utente è un amministratore
+    if (this.authService.isAdmin()) {
+      return true;
+    } else {
+      // Se non è un amministratore, naviga alla pagina principale
+      this.router.navigate(['/']);
+      return false;
+    }
   }
-};
+}

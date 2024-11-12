@@ -15,10 +15,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faXTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventsModule } from './events/events.module';
 import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -39,9 +41,11 @@ import { UnderCostructionComponent } from './components/under-costruction/under-
     HttpClientModule,
     ReactiveFormsModule,
     EventsModule,
+    AuthModule,
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'it-IT'}
+    { provide: LOCALE_ID, useValue: 'it-IT'},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
   ],
   bootstrap: [AppComponent]
 })

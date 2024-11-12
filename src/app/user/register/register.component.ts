@@ -47,15 +47,24 @@ export class RegisterComponent {
     this.registerForm.get('termsAccepted')?.markAsTouched();
     if (this.registerForm.valid) {
       const { confirmPassword, termsAccepted, ...formData } = this.registerForm.value;
-      const user: RegisterUserDto = { ...formData, isAdmin: this.registerForm.value.role };
+      const user: RegisterUserDto = { 
+        ...formData, 
+        isAdmin: this.registerForm.value.role // Imposta `isAdmin` basato sul valore di `role`
+      };
+  
+      console.log('Dati inviati per la registrazione:', user);
   
       this.authService.register(user).subscribe({
-        next: () => {
+        next: (response) => {
+          console.log('Risposta della registrazione:', response);
+          if (response.accessToken) {
+            localStorage.setItem('accessToken', response.accessToken);
+          }
           if (this.registerForm.value.role) {
             this.toastMessage = 'La registrazione deve essere approvata da un admin già registrato.';
           } else {
             this.toastMessage = 'Registrazione avvenuta con successo!';
-            this.router.navigate(['/user/login']);
+            this.router.navigate(['/user/welcome']);
           }
           this.showToast = true;
           this.registerForm.reset(); // Reset della form
@@ -67,12 +76,12 @@ export class RegisterComponent {
         }
       });
     } else {
-      console.error('Form non valido', this.registerForm.errors);('requiredTrue');
-      console.log('touched', this.registerForm.get('termsAccepted')?.touched);
+      console.error('Form non valido', this.registerForm.errors);
       this.toastMessage = 'Ci sono errori nel modulo. Controlla di aver compilato tutti i campi.';
       this.showToast = true;
     }
   }
+  
   
 }
 

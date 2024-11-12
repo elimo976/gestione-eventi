@@ -4,7 +4,7 @@
             <h2 class="text-3xl font-bold text-petrol-dark mb-2">Benvenuto</h2>
             <p class="text-sm text-petrol-light">Accedi per continuare</p>
         </div>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
             <div class="relative mb-6">
                 <label for="email" class="absolute -top-3 left-4 bg-white px-2 text-sm font-medium text-petrol-dark">Email</label>
                 <input

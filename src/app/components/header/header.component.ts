@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SearchEventsService } from '../../services/search-events.service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -12,12 +13,14 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 export class HeaderComponent {
   isMenuOpen: boolean = false;
   keyword: string = '';
+  isLoggedIn: boolean = false;
+  userName: string = '';
+  private userSubscription: Subscription | null = null;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private searchEventsService: SearchEventsService,
-    private fb: FormBuilder
   ) { }
 
   keywordControl = new FormControl('');
@@ -27,11 +30,7 @@ export class HeaderComponent {
   }
 
   navigateToUser() {
-    if(this.authService.userIsLoggedIn()) {
-      this.router.navigateByUrl('/user/login');
-    } else {
-      this.router.navigateByUrl('/user/register');
-    }
+          this.router.navigateByUrl('/user/login');
   }
 
   onKeywordChange(event: Event): void {
