@@ -25,6 +25,18 @@ export class HeaderComponent {
 
   keywordControl = new FormControl('');
 
+  ngOnInit(): void {
+    this.userSubscription = this.authService.user$.subscribe(user => {
+      if (user) {
+        this.userName = `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim();
+        this.isLoggedIn = true;
+      } else {
+        this.userName = '';
+        this.isLoggedIn = false;
+      }
+    })
+  }
+
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -47,5 +59,14 @@ export class HeaderComponent {
   clearInput() {
     this.keywordControl.setValue('');
     this.searchEventsService.setKeyword('');
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigateByUrl('/user/login');
+  }
+
+  ngOnDestroy(): void {
+    this.userSubscription?.unsubscribe();
   }
 }
