@@ -20,11 +20,18 @@ export class LoginComponent implements OnInit {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
-      role: new FormControl(false) // Inizialmente impostato su false (User)
+      role: new FormControl(false), // Inizialmente impostato su false (User)
+      rememberMe: new FormControl(false)
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Carica il token da localStorage se presente e lo imposta nel checkbox "Ricordami"
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      this.loginForm.get('rememberMe')?.setValue(true);
+    }
+  }
 
   toggleRole() {
     const currentRole = this.loginForm.get('role')!.value;
@@ -39,12 +46,14 @@ export class LoginComponent implements OnInit {
 
     const { email, password } = this.loginForm.value;
     const loginUser: LoginUser = { email, password };
+    const rememberMe = this.loginForm.get('rememberMe')!.value; // Recupera il flag "Ricordami"
 
     this.loading = true;
-    this.authService.login(loginUser).subscribe({
+
+    this.authService.login(loginUser, rememberMe).subscribe({
       next: (response) => {
-        localStorage.setItem('authToken', response.accessToken);
-        this.router.navigateByUrl('/user/welcome'); 
+        // Dopo il login, il service si occupa di salvare l'utente e il token
+        this.router.navigateByUrl('/user/welcome');
       },
       error: (error) => {
         // Gestisce eventuali errori del login
@@ -53,4 +62,5 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
 }

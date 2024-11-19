@@ -28,26 +28,30 @@
             <div class="flex items-center mb-6">
                 <span class="mr-2 text-petrol-dark">Ruolo:</span>
                 <label class="relative inline-flex items-center cursor-pointer">
-                    <input 
-                        type="checkbox" 
-                        formControlName="role" 
+                    <input
+                        type="checkbox"
+                        formControlName="role"
                         class="sr-only"
                         (click)="toggleRole()"
                         [checked]="loginForm.get('role')?.value"
                     />
                     <div class="w-11 h-6 bg-petrol rounded-full transition duration-200 ease-in-out" [class.bg-petrol-dark]="loginForm.get('role')?.value">
-                        <span 
-                            class="absolute left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300" 
+                        <span
+                            class="absolute left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300"
                             [ngClass]="{'translate-x-5': loginForm.get('role')?.value}">
                         </span>
                     </div>
                     <span class="ml-3 text-sm text-petrol-dark">{{ loginForm.get('role')?.value ? 'Admin' : 'User' }}</span>
                 </label>
             </div>
-            
+
             <div class="flex items-center justify-between mb-6 text-sm">
                 <label class="inline-flex items-center">
-                    <input type="checkbox" class="form-checkbox text-petrol focus:ring-petrol-dark rounded" />
+                    <input
+                     type="checkbox"
+                     class="form-checkbox text-petrol focus:ring-petrol-dark rounded"
+                     formControlName="rememberMe"
+                     />
                     <span class="ml-2 text-petrol-dark">Ricordami</span>
                 </label>
                 <a href="#" class="text-petrol-dark underline hover:text-petrol">Password dimenticata?</a>
