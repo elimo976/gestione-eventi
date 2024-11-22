@@ -1,5 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 
@@ -14,13 +15,14 @@ import { EventsPreviewComponent } from './components/events-preview/events-previ
 import { FooterComponent } from './components/footer/footer.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faXTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { faChevronRight, faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faArrowRightFromBracket, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventsModule } from './events/events.module';
 import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { AuthModule } from './auth/auth.module';
     HeroComponent,
     EventsPreviewComponent,
     FooterComponent,
-    UnderCostructionComponent,
+    UnderCostructionComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,13 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     EventsModule,
     AuthModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({ // Configurazione globale
+      timeOut: 5000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true, // Evita duplicati
+      closeButton: true, // Mostra il pulsante di chiusura
+    }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-IT'},
@@ -49,9 +58,9 @@ import { AuthModule } from './auth/auth.module';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { 
+export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight, faArrowRightFromBracket);
+    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight, faArrowRightFromBracket, faPhoneAlt);
 
     registerLocaleData(localeIt, 'it');
   }

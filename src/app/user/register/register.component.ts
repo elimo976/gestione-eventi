@@ -28,7 +28,7 @@ export class RegisterComponent {
       password: new FormControl('', [Validators.required, Validators.minLength(8), passwordStrengthValidator()]),
       confirmPassword: new FormControl('', Validators.required),
       role: new FormControl(false),
-      termsAccepted: new FormControl(false, requiredTrueValidator()) 
+      termsAccepted: new FormControl(false, requiredTrueValidator())
     }, { validators: passwordMatchValidator() }); // Passa la funzione del validatore
   }
 
@@ -47,13 +47,13 @@ export class RegisterComponent {
     this.registerForm.get('termsAccepted')?.markAsTouched();
     if (this.registerForm.valid) {
       const { confirmPassword, termsAccepted, ...formData } = this.registerForm.value;
-      const user: RegisterUserDto = { 
-        ...formData, 
+      const user: RegisterUserDto = {
+        ...formData,
         isAdmin: this.registerForm.value.role // Imposta `isAdmin` basato sul valore di `role`
       };
-  
+
       console.log('Dati inviati per la registrazione:', user);
-  
+
       this.authService.register(user).subscribe({
         next: (response) => {
           console.log('Risposta della registrazione:', response);
@@ -81,7 +81,7 @@ export class RegisterComponent {
       this.showToast = true;
     }
   }
-  
-  
+
+
 }
 

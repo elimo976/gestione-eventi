@@ -2,7 +2,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@layer utilies {
+  .toast {
+    @apply bg-gray-800 text-white rounded-lg shadow-lg;
+  }
+  .toast .progress-bar {
+    @apply bg-green-500
+  }
+}
 
 *, *::before, *::after {
     box-sizing: border-box;
+  }
+
+  .toast .progress-bar {
+    background: #4caf50; /* Verde */
+  }
+
+  .custom-toast {
+    background: rgba(59, 187, 34, 0.603);
+    width: 100%;
+    color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'Roboto', sans-serif;
+    position: fixed;
+    top: 50%;
+    left: 0;
   }

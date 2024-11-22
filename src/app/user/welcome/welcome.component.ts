@@ -2,39 +2,36 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { LoginUser, RegisterUser } from '../../services/auth.service'; // Importa i tipi corretti
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.scss']
 })
-export class WelcomeComponent implements OnInit, OnDestroy {
-
+export class WelcomeComponent {
   userName: string = '';
+  userId: string | null = null; // ID dell'utente
   isLoggedIn: boolean = false;
   private userSubscription: Subscription | null = null;
 
   constructor(
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // Sottoscriviti all'observable user$ per ottenere i dati utente in tempo reale
     this.userSubscription = this.authService.user$.subscribe(user => {
       if (user) {
-        // Verifica se l'utente è un 'RegisterUser' (contiene firstName e lastName)
-        if ('firstName' in user && 'lastName' in user) {
-          // Se l'utente è un RegisterUser
-          this.userName = `${user.firstName} ${user.lastName}`;
-        } else if ('email' in user) {
-          // Se l'utente è un LoginUser (contiene solo email)
-          this.userName = user.email;
-        }
+        // Controlla che i valori siano definiti
+        this.userName = (user.firstName && user.lastName)
+          ? `${user.firstName} ${user.lastName}`
+          : (user.email || 'Utente sconosciuto');
+
+        this.userId = user.id || null; // Assicurati che userId sia valido
         this.isLoggedIn = true;
       } else {
         this.userName = 'Utente sconosciuto';
+        this.userId = null;
         this.isLoggedIn = false;
       }
     });
@@ -47,7 +44,6 @@ export class WelcomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Annulla la sottoscrizione per evitare memory leaks
     this.userSubscription?.unsubscribe();
   }
 }

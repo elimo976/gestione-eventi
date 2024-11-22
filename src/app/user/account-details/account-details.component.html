@@ -1,0 +1,92 @@
+<div *ngIf="user; else loadingOrError" class="max-w-3xl mx-auto p-8 bg-white rounded-lg shadow-lg border border-gray-200">
+  <h2 class="text-3xl font-semibold text-gray-600 mb-6 text-center">Dati Account</h2>
+
+  <div class="space-y-6">
+    <!-- Nome Completo -->
+    <div *ngIf="user.firstName || user.lastName" class="flex justify-between items-center border-b-4 border-petrol-light border-opacity-50 pb-4 mb-4">
+      <span class="text-petrol text-2xl font-bold">{{ user.firstName }} {{ user.lastName }}</span>
+    </div>
+
+    <!-- Email -->
+    <div *ngIf="user.email">
+      <span class="text-gray-700">{{ user.email }}</span>
+    </div>
+
+    <!-- Data di Nascita -->
+    <div *ngIf="user.dateOfBirth" class="flex justify-between items-center pb-4 mb-4">
+      <span class="text-gray-700">Data di nascita: {{ user.dateOfBirth | date: "dd MMMM yyyy" }}</span>
+    </div>
+
+    <!-- Indirizzo -->
+    <div *ngIf="user.address" class="space-y-2 bg-gray-50 p-4 rounded-lg shadow-sm">
+      <div *ngIf="user.address.street" class="flex justify-between items-center">
+        <span class="text-gray-700">{{ user.address.street }}</span>
+      </div>
+      <div *ngIf="user.address.city" class="flex justify-between items-center">
+        <span class="text-gray-700">{{ user.address.city }}</span>
+      </div>
+      <div *ngIf="user.address.zipCode" class="flex justify-between items-center">
+        <span class="text-gray-700">{{ user.address.zipCode }}</span>
+      </div>
+      <div *ngIf="user.address.country" class="flex justify-between items-center">
+        <span class="text-gray-700">{{ user.address.country }}</span>
+      </div>
+    </div>
+
+    <!-- Numero di Telefono -->
+    <div *ngIf="user.phoneNumber" class="flex justify-between items-center pb-4 mb-4">
+      <div class="flex items-center space-x-2">
+        <fa-icon [icon]="['fas', 'phone-alt']" class="text-white bg-gray-400 p-1 rounded-full w-8 h-8 flex items-center justify-center shadow-lg"></fa-icon>
+        <span class="text-gray-700">{{ user.phoneNumber }}</span>
+      </div>
+    </div>
+
+
+    <!-- Biografia -->
+    <div *ngIf="user.bio" class="space-y-2 bg-gray-100 p-4 rounded-lg shadow-sm">
+      <span class="text-gray-700 text-bold font-medium">Biografia</span>
+      <p class="text-gray-900">{{ user.bio }}</p>
+    </div>
+
+    <!-- Interessi -->
+    <div *ngIf="user.interests && user.interests.length" class="space-y-2 bg-gray-100 p-4 rounded-lg shadow-sm">
+      <span class="text-gray-700 font-medium">Interessi</span>
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 text-gray-900">
+        <div *ngFor="let interest of user.interests" class="bg-white p-2 rounded-lg shadow-md text-center">
+          <span>{{ interest }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ruolo -->
+    <div *ngIf="user.role" class="bg-gray-50 p-4 rounded-lg shadow-sm">
+      <span class="text-gray-700 font-medium">Sei registrato come <b>{{ user.role }}</b></span>
+    </div>
+
+    <!-- Avatar -->
+    <div *ngIf="user.avatarUrl" class="mt-6 text-center">
+      <img [src]="user.avatarUrl" alt="Avatar" class="w-32 h-32 rounded-full border-4 border-petrol-dark mx-auto shadow-lg" />
+    </div>
+  </div>
+
+  <div class="mt-10 flex justify-between gap-4">
+    <!-- Modifica Account -->
+    <button routerLink="/account/edit" class="py-2 px-6 bg-petrol text-white font-semibold rounded-lg shadow-md hover:bg-petrol-dark transition-all ease-in-out duration-300 transform hover:scale-105">
+      Modifica Account
+    </button>
+
+    <!-- Elimina Account -->
+    <button (click)="deleteUser()" class="py-2 px-6 border-2 border-red-700 text-red-700 font-semibold rounded-lg shadow-md hover:bg-red-700 hover:text-white transition-all ease-in-out duration-300 transform hover:scale-105">
+      Elimina Account
+    </button>
+  </div>
+</div>
+
+<ng-template #loadingOrError>
+  <div *ngIf="user === null" class="text-center text-gray-500">
+    <p class="text-lg">Caricamento...</p>
+  </div>
+  <div *ngIf="user === undefined" class="text-center text-red-500">
+    <p class="text-lg">Errore nel recupero dei dettagli dell'utente</p>
+  </div>
+</ng-template>

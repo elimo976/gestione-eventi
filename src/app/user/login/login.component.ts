@@ -38,29 +38,34 @@ export class LoginComponent implements OnInit {
     this.loginForm.get('role')!.setValue(!currentRole);
     console.log('Role toggled to:', !currentRole);
   }
-
   login(): void {
     if (this.loginForm.invalid) {
+      this.errorMessage = 'Inserisci un\'email e una password validi.';
       return;
     }
 
     const { email, password } = this.loginForm.value;
     const loginUser: LoginUser = { email, password };
-    const rememberMe = this.loginForm.get('rememberMe')!.value; // Recupera il flag "Ricordami"
+    const rememberMe = this.loginForm.get('rememberMe')!.value;
 
     this.loading = true;
+    this.errorMessage = null; // Resetta eventuali errori precedenti
 
     this.authService.login(loginUser, rememberMe).subscribe({
       next: (response) => {
-        // Dopo il login, il service si occupa di salvare l'utente e il token
+        // Reindirizza alla pagina di benvenuto dopo un login riuscito
         this.router.navigateByUrl('/user/welcome');
       },
       error: (error) => {
-        // Gestisce eventuali errori del login
-        this.errorMessage = 'Credenziali errate. Riprova.';
+        // Usa il messaggio personalizzato dal servizio
+        this.errorMessage = error.message;
         this.loading = false;
+      },
+      complete: () => {
+        this.loading = false; // Ferma il caricamento alla fine della chiamata
       }
     });
   }
+
 
 }

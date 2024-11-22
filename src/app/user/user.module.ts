@@ -8,20 +8,26 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ValidatorsModule } from '../shared/validators/validators.module';
 import { SharedModule } from '../shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { AccountDetailsComponent } from './account-details/account-details.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegisterComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    AccountDetailsComponent
   ],
   imports: [
     CommonModule,
     UserRoutingModule,
     ReactiveFormsModule,
     ValidatorsModule,
-    SharedModule
+    SharedModule,
+    FontAwesomeModule,
+    ToastrModule,
   ]
 })
 export class UserModule { }
