@@ -63,7 +63,7 @@ export class RegisterComponent {
             localStorage.setItem('accessToken', response.accessToken);
           }
           if (this.registerForm.value.role) {
-            this.toastNotificationService.showToast('La registrazione deve essere approvata da un admin già registrato.', 'info')
+            this.toastNotificationService.showToast('La registrazione deve essere approvata da un admin già registrato.', 'warning')
           } else {
             this.toastNotificationService.showToast('Registrazione avvenuta con successo!', 'success')
             this.router.navigate(['/user/welcome']);

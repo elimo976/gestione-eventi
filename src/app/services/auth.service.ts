@@ -143,6 +143,7 @@ export class AuthService {
 
     // Rimuove l'oggetto utente (se presente)
     localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
 
     // Resetta lo stato dell'utente nel BehaviorSubject
     this.userSubject.next(null);
