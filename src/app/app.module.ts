@@ -22,7 +22,6 @@ import { EventsModule } from './events/events.module';
 import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -45,12 +44,6 @@ import { ToastrModule } from 'ngx-toastr';
     EventsModule,
     AuthModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot({ // Configurazione globale
-      timeOut: 5000,
-      positionClass: 'toast-top-center',
-      preventDuplicates: true, // Evita duplicati
-      closeButton: true, // Mostra il pulsante di chiusura
-    }),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-IT'},

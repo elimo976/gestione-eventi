@@ -49,7 +49,7 @@ export class HeaderComponent {
     const input = event.target as HTMLInputElement;
     // console.log('Keyword changed:', input.value);
     this.searchEventsService.setKeyword(input.value);
-    
+
     // Reindirizza alla home se la chiave di ricerca è inserita
     if(input.value.length > 0) {
       this.router.navigateByUrl('/');

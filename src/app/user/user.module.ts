@@ -10,7 +10,6 @@ import { SharedModule } from '../shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -27,7 +26,6 @@ import { ToastrModule } from 'ngx-toastr';
     ValidatorsModule,
     SharedModule,
     FontAwesomeModule,
-    ToastrModule,
   ]
 })
 export class UserModule { }
