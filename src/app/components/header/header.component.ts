@@ -16,6 +16,8 @@ export class HeaderComponent {
   isLoggedIn: boolean = false;
   userName: string = '';
   private userSubscription: Subscription | null = null;
+  userId: string | null = null;
+  userIcon: boolean = false; // Proprietà per gestire l'icona dell'account
 
   constructor(
     private router: Router,
@@ -30,9 +32,18 @@ export class HeaderComponent {
       if (user) {
         this.userName = `${user.firstName ?? ''} ${user.lastName ?? ''}`.trim();
         this.isLoggedIn = true;
+        this.userIcon = false;
       } else {
         this.userName = '';
         this.isLoggedIn = false;
+        this.userIcon = true;
+      }
+    })
+
+    // Sottoscrizione a user$ per ottenere l'ID utente
+    this.authService.user$.subscribe(user => {
+      if (user && user.id) {
+        this.userId = user.id; // Assegna l'ID se è presente
       }
     })
   }
@@ -59,6 +70,12 @@ export class HeaderComponent {
   clearInput() {
     this.keywordControl.setValue('');
     this.searchEventsService.setKeyword('');
+  }
+
+  onUserNameClick(): void {
+    if (this.userId) {
+      this.router.navigateByUrl(`/user/account-details/${this.userId}`);
+    }
   }
 
   logout() {

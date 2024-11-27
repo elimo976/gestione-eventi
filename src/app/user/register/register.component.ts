@@ -6,6 +6,7 @@ import { requiredTrueValidator } from '../../shared/validators/checkbox.validato
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { RegisterUserDto } from '../dto/user.dto';
+import { ToastNotificationsService } from '../../services/toast-notifications.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,8 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private toastNotificationService: ToastNotificationsService
     ) {
     this.registerForm = new FormGroup({
       firstName: new FormControl('', Validators.required),
@@ -61,9 +63,9 @@ export class RegisterComponent {
             localStorage.setItem('accessToken', response.accessToken);
           }
           if (this.registerForm.value.role) {
-            this.toastMessage = 'La registrazione deve essere approvata da un admin già registrato.';
+            this.toastNotificationService.showToast('La registrazione deve essere approvata da un admin già registrato.', 'info')
           } else {
-            this.toastMessage = 'Registrazione avvenuta con successo!';
+            this.toastNotificationService.showToast('Registrazione avvenuta con successo!', 'success')
             this.router.navigate(['/user/welcome']);
           }
           this.showToast = true;
@@ -71,13 +73,13 @@ export class RegisterComponent {
         },
         error: (error) => {
           console.error('Errore durante la registrazione', error);
-          this.toastMessage = 'Si è verificato un errore durante la registrazione. Riprova.';
+          this.toastNotificationService.showToast('Si è verificato un errore durante la registrazione. Riprova.', 'error');
           this.showToast = true;
         }
       });
     } else {
       console.error('Form non valido', this.registerForm.errors);
-      this.toastMessage = 'Ci sono errori nel modulo. Controlla di aver compilato tutti i campi.';
+      this.toastNotificationService.showToast('Ci sono errori nel modulo. Controlla di aver compilato tutti i campi.', 'error');
       this.showToast = true;
     }
   }

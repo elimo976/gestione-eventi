@@ -1,0 +1,48 @@
+.success {
+  background-color: #128d90;
+}
+
+.error {
+  background-color: #d42d3e;
+}
+
+.info {
+  background-color: #4f828a;
+}
+
+.warning {
+  background-color: #ff9f00;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+}
+
+.toast {
+  position: fixed;
+  top: 10%;
+  right: 10px;
+  z-index: 1000;
+  max-width: 300px;
+  padding: 10px;
+  border-radius: 5px;
+  animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 4.5s forwards;
+}

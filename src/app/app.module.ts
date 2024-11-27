@@ -22,6 +22,7 @@ import { EventsModule } from './events/events.module';
 import { UnderCostructionComponent } from './components/under-costruction/under-costruction.component';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { AuthModule } from './auth/auth.module';
     HeroComponent,
     EventsPreviewComponent,
     FooterComponent,
-    UnderCostructionComponent
+    UnderCostructionComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,7 +45,8 @@ import { AuthModule } from './auth/auth.module';
     EventsModule,
     AuthModule,
     BrowserAnimationsModule,
-  ],
+    SharedModule
+],
   providers: [
     { provide: LOCALE_ID, useValue: 'it-IT'},
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }

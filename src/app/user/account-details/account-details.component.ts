@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';  // Aggiungi Router per la navigazione
 import { catchError, of } from 'rxjs';
+import { ToastComponent } from '../../shared/toast/toast.component';
+import { ToastNotificationsService } from '../../services/toast-notifications.service';
 
 @Component({
   selector: 'app-account-details',
@@ -20,6 +22,7 @@ export class AccountDetailsComponent {
     private userService: UserService,
     private authService: AuthService,
     private router: Router,
+    private toastNotificationService: ToastNotificationsService
   ) {}
 
   ngOnInit(): void {
@@ -60,11 +63,13 @@ export class AccountDetailsComponent {
         this.userService.deleteUser (this.userId).pipe(
           catchError((error) => {
             console.error('Errore durante l\'eliminazione:', error);
+            this.toastNotificationService.showToast('Errore durante l\'eliminazione del tuo account', 'error')
             return of(null);
           })
         ).subscribe((response) => {
           if (response) {
             console.log('Utente eliminato con successo:', response);
+            this.toastNotificationService.showToast('Il tuo account è stato eliminato con successo', 'success');
 
             // Logout e reindirizzamento con ritardo per visualizzare il Toast
             setTimeout(() => {
@@ -76,9 +81,11 @@ export class AccountDetailsComponent {
         });
       } else {
         console.log('Eliminazione annullata');
+        this.toastNotificationService.showToast('Eliminazione dell\'account annullata.', 'warning');
       }
     } else {
       console.error('ID utente non trovato');
+      this.toastNotificationService.showToast('ID utente non trovato', 'error');
     }
   }
 }

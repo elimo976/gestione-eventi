@@ -1,5 +1,6 @@
 <div *ngIf="show" class="fixed inset-0 flex items-center justify-center z-50">
-  <div class="bg-petrol-dark text-gray-100 rounded-lg shadow-lg p-5 max-w-md w-full opacity-90">
+  <div class="toast text-gray-100 rounded-lg shadow-lg p-5 max-w-md w-full opacity-90"
+       [ngClass]="getToastClass()">
     <div class="flex justify-between items-center">
       <span>{{ message }}</span>
       <button class="bg-transparent border-none cursor-pointer" (click)="close()">
