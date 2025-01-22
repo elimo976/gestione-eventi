@@ -33,7 +33,6 @@ export class AccountDetailsComponent {
     this.authService.user$.subscribe(user => {
       if (user) {
         this.userId = user.id; // Ottieni l'ID utente dal token
-        console.log('User ID estratto dal token:', this.userId);
         this.loadUserDetails(); // Carica i dettagli dell'utente
       } else {
         console.error('Nessun utente loggato');
@@ -47,7 +46,6 @@ export class AccountDetailsComponent {
       this.userService.getUserDetails(this.userId).subscribe({
         next: (data) => {
           this.user = data; // Salva i dati dell'utente nella proprietà
-          console.log('Dettagli utente caricati:', this.user);
         },
         error: (error) => {
           console.error('Errore nel recupero dei dettagli dell\'utente', error);

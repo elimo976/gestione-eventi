@@ -1,74 +1,150 @@
 <form [formGroup]="editForm!" (ngSubmit)="onSubmit()" class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-  <div class="mb-4">
-    <label for="firstName" class="block text-sm font-medium text-gray-700">Nome</label>
-    <input type="text" id="firstName" formControlName="firstName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-    <!-- Messaggio di errore -->
-    <!-- <div *ngIf="editForm.get('firstName').errors?.required" class="text-red-500 text-sm">Nome obbligatorio</div> -->
-  </div>
-
-  <div class="mb-4">
-    <label for="lastName" class="block text-sm font-medium text-gray-700">Cognome</label>
-    <input type="text" id="lastName" formControlName="lastName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  </div>
-
-  <div class="mb-4">
-    <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-    <input type="email" id="email" formControlName="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  </div>
-
-  <div class="mb-4">
-    <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Data di Nascita</label>
-    <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  </div>
-
-  <div formGroupName="address">
-    <h2>Indirizzo</h2>
-    <div class="my-4">
-      <label for="street" class="block text-sm font-medium text-gray-700">Via e numero civico</label>
-      <input type="text" id="street" formControlName="street" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-    </div>
+  <ng-container *ngIf="editForm">
     <div class="mb-4">
-      <label for="city" class="block text-sm font-medium text-gray-700">Città</label>
-      <input type="text" id="city" formControlName="city" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <!-- Nome -->
+      <label for="firstName" class="block text-sm font-medium text-gray-700">Nome</label>
+      <input type="text" id="firstName" formControlName="firstName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': editForm.get('firstName')?.invalid && (editForm.get('firstName')?.dirty || editForm.get('firstName')?.touched),
+        'border-gray-300': !(editForm.get('firstName')?.invalid && (editForm.get('firstName')?.dirty || editForm.get('firstName')?.touched))
+      }">
+      <div *ngIf="editForm.get('firstName')?.invalid && (editForm.get('firstName')?.dirty || editForm.get('firstName')?.touched)" class="text-red-500 text-sm">
+        <div *ngIf="editForm.get('firstName')?.errors?.['minlength']">Il nome deve contenere almeno 2 caratteri.</div>
+        <div *ngIf="editForm.get('firstName')?.errors?.['maxlength']">Il nome può contenere al massimo 20 caratteri.</div>
+      </div>
     </div>
+    <!-- Cognome -->
     <div class="mb-4">
-      <label for="zipCode" class="block text-sm font-medium text-gray-700">CAP</label>
-      <input type="text" id="zipCode" formControlName="zipCode" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <label for="lastName" class="block text-sm font-medium text-gray-700">Cognome</label>
+      <input type="text" id="lastName" formControlName="lastName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': editForm.get('lastName')?.invalid && (editForm.get('lastName')?.dirty || editForm.get('lastName')?.touched),
+        'border-gray-300': !(editForm.get('lastName')?.invalid && (editForm.get('lastName')?.dirty || editForm.get('lastName')?.touched))
+      }">
+        <div *ngIf="editForm.get('lastName')?.invalid && (editForm.get('lastName')?.dirty || editForm.get('lastName')?.touched)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('lastName')?.errors?.['minlength']">Il cognome deve contenere almeno 2 caratteri.</div>
+          <div *ngIf="editForm.get('lastName')?.errors?.['maxlength']">Il cognome può contenere al massimo 20 caratteri.</div>
+        </div>
     </div>
+    <!-- Email -->
     <div class="mb-4">
-      <label for="country" class="block text-sm font-medium text-gray-700">Nazione</label>
-      <input type="text" id="country" formControlName="country" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input type="email" id="email" formControlName="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': editForm.get('email')?.invalid && (editForm.get('email')?.dirty || editForm.get('email')?.touched),
+        'border-gray-300': !(editForm.get('email')?.invalid && (editForm.get('email')?.dirty || editForm.get('email')?.touched))
+      }">
+      <div *ngIf="editForm.get('email')?.invalid && (editForm.get('email')?.dirty || editForm.get('email')?.touched)" class="text-red-500 text-sm">
+        <div *ngIf="editForm.get('email')?.errors?.['email']">Inserisci un'email valida.</div>
+      </div>
     </div>
-  </div>
+    <!-- Data di nascita -->
+    <div class="mb-4">
+      <label for="dateOfBirth" class="block text-sm font-medium text-gray-700">Data di Nascita</label>
+      <input type="date" id="dateOfBirth" formControlName="dateOfBirth" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+    </div>
 
-  <div class="mb-4">
-    <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Numero di Telefono</label>
-    <input type="tel" id="phoneNumber" formControlName="phoneNumber" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  </div>
+    <!-- Indirizzo -->
+    <div formGroupName="address">
+      <h2>Indirizzo</h2>
+      <!-- Via e Civico -->
+      <div class="my-4">
+        <label for="street" class="block text-sm font-medium text-gray-700">Via e numero civico</label>
+        <input type="text" id="street" formControlName="street" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{
+          'border-red-500': editForm.get('address.street')?.invalid && (editForm.get('address.street')?.dirty || editForm.get('address.street')?.touched),
+          'border-gray-300': !(editForm.get('address.street')?.invalid && (editForm.get('address.street')?.dirty || editForm.get('address.street')?.touched))
+        }">
+        <div *ngIf="editForm.get('address.street')?.invalid && (editForm.get('address.street')?.dirty || editForm.get('address.street')?.touched)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('address.street')?.errors?.['minlength']">Il campo di via e civico deve contenere almeno 5 caratteri.</div>
+          <div *ngIf="editForm.get('address.street')?.errors?.['maxlength']">Il campo di via e civico può contenere al massimo 50 caratteri.</div>
+        </div>
+      </div>
+      <!-- Città -->
+      <div class="mb-4">
+        <label for="city" class="block text-sm font-medium text-gray-700">Città</label>
+        <input type="text" id="city" formControlName="city" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{
+          'border-red-500': editForm.get('address.city')?.invalid && (editForm.get('address.city')?.dirty || editForm.get('address.city')?.touched),
+          'border-gray-300': !(editForm.get('address.city')?.invalid && (editForm.get('address.city')?.dirty || editForm.get('address.city')?.touched))
+        }">
+        <div *ngIf="editForm.get('address.city')?.invalid && (editForm.get('address.city')?.dirty || editForm.get('address.city')?.touched)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('address.city')?.errors?.['pattern']">La città non può contenere caratteri speciali o numeri</div>
+          <div *ngIf="editForm.get('address.city')?.errors?.['maxlength']">La città può contenere al massimo 50 caratteri.</div>
+        </div>
+      </div>
+      <!-- CAP -->
+      <div class="mb-4">
+        <label for="zipCode" class="block text-sm font-medium text-gray-700">CAP</label>
+        <input type="text" id="zipCode" formControlName="zipCode" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{
+          'border-red-500': editForm.get('address.zipCode')?.invalid && (editForm.get('address.zipCode')?.dirty || editForm.get('address.zipCode')?.touched),
+          'border-gray-300': !(editForm.get('address.zipCode')?.invalid && (editForm.get('address.zipCode')?.dirty || editForm.get('address.zipCode')?.touched))
+        }">
+         <div *ngIf="editForm.get('address.zipCode')?.invalid && (editForm.get('address.zipCode')?.dirty || editForm.get('address.zipCode')?.touched)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('address.zipCode')?.errors?.['pattern']">Inserisci un CAP valido.</div>
+        </div>
+      </div>
+      <!-- Nazione -->
+      <div class="mb-4">
+        <label for="country" class="block text-sm font-medium text-gray-700">Nazione</label>
+        <input type="text" id="country" formControlName="country" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        [ngClass]="{
+          'border-red-500': editForm.get('address.country')?.invalid && (editForm.get('address.country')?.dirty || editForm.get('address.country')?.touched),
+          'border-gray-300': !(editForm.get('address.country')?.invalid && (editForm.get('address.country')?.dirty || editForm.get('address.country')?.touched))
+        }">
+        <div *ngIf="editForm.get('address.country')?.invalid && (editForm.get('address.country')?.dirty || editForm.get('address.country')?.touched)" class="text-red-500 text-sm">
+          <div *ngIf="editForm.get('address.country')?.errors?.['pattern']">Il campo nazione non può contenere caratteri speciali o numeri</div>
+          <div *ngIf="editForm.get('address.country')?.errors?.['minlength']">Il campo nazione deve contenere almeno 3 caratteri.</div>
+          <div *ngIf="editForm.get('address.country')?.errors?.['maxlength']">Il campo nazione può contenere al massimo 50 caratteri.</div>
+        </div>
+      </div>
+    </div>
+    <!-- Numero di telefono -->
+    <div class="mb-4">
+      <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Numero di Telefono</label>
+      <input type="text" id="phoneNumber" formControlName="phoneNumber" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': editForm.get('phoneNumber')?.invalid && (editForm.get('phoneNumber')?.dirty || editForm.get('phoneNumber')?.touched),
+        'border-gray-300': !(editForm.get('phoneNumber')?.invalid && (editForm.get('phoneNumber')?.dirty || editForm.get('phoneNumber')?.touched))
+      }">
+      <div *ngIf="editForm.get('phoneNumber')?.invalid && (editForm.get('phoneNumber')?.dirty || editForm.get('phoneNumber')?.touched)" class="text-red-500 text-sm">
+        <div *ngIf="editForm.get('phoneNumber')?.errors?.['pattern']">Inserisci un numero di telefono valido</div>
+      </div>
+    </div>
+    <!-- Bio -->
+    <div class="mb-4">
+      <label for="bio" class="block text-sm font-medium text-gray-700">Biografia</label>
+      <textarea id="bio" formControlName="bio" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      [ngClass]="{
+        'border-red-500': editForm.get('bio')?.invalid && (editForm.get('bio')?.dirty || editForm.get('bio')?.touched),
+        'border-gray-300': !(editForm.get('bio')?.invalid && (editForm.get('bio')?.dirty || editForm.get('bio')?.touched))
+      }"></textarea>
+      <div *ngIf="editForm.get('bio')?.invalid && (editForm.get('bio')?.dirty || editForm.get('bio')?.touched)" class="text-red-500 text-sm">
+        <div *ngIf="editForm.get('bio')?.errors?.['maxlength']">Massimo 500 caratteri</div>
+      </div>
+    </div>
 
-  <div class="mb-4">
-    <label for="bio" class="block text-sm font-medium text-gray-700">Biografia</label>
-    <textarea id="bio" formControlName="bio" rows="4" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
-  </div>
-
-   <!-- Selezione Avatar -->
-<div class="mb-4">
-  <label for="avatarUrl" class="block text-sm font-medium text-gray-700">Avatar</label>
-  <select
-    id="avatarUrl"
-    formControlName="avatarUrl"
-    class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-  >
-    <option value="">Scegli un avatar</option>
-    <!-- Popola gli avatar dal backend -->
-    <option *ngFor="let avatar of avatars" [value]="avatar">{{ avatar }}</option>
-  </select>
-</div>
-
-
-  <div class="mb-4">
-    <button type="submit" [disabled]="editForm!.invalid" class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-      Salva
-    </button>
-  </div>
+    <div class="mb-4">
+    <label class="block text-sm font-medium text-gray-700">Avatar</label>
+    <div class="flex flex-wrap gap-4 mt-2">
+      <div
+        *ngFor="let avatar of avatars"
+        class="w-16 h-16 rounded-full overflow-hidden border-2 cursor-pointer transition-transform transform hover:scale-110"
+        [ngClass]="{
+          'border-green-500': avatar === selectedAvatar,
+          'border-gray-300': avatar !== selectedAvatar
+        }"
+        (click)="selectAvatar(avatar)"
+      >
+        <img [src]="baseUrl + avatar" alt="Avatar" class="w-full h-full object-cover">
+      </div>
+    </div>
+    </div>
+    <div class="my-8">
+      <button type="submit" [disabled]="editForm!.invalid" class="w-full py-2 px-4 bg-amber-600 text-white font-semibold rounded-md shadow-sm hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        Salva
+      </button>
+    </div>
+  </ng-container>
 </form>
