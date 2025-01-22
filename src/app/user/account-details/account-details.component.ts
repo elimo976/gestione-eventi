@@ -6,6 +6,7 @@ import { Router } from '@angular/router';  // Aggiungi Router per la navigazione
 import { catchError, of } from 'rxjs';
 import { ToastComponent } from '../../shared/toast/toast.component';
 import { ToastNotificationsService } from '../../services/toast-notifications.service';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-account-details',
@@ -17,6 +18,7 @@ export class AccountDetailsComponent {
   userId: string | null | undefined = undefined;
   errorMessage?: string;
   successMessage?: string;
+  baseUrl = environment.BASE_URL;
 
   constructor(
     private userService: UserService,
@@ -87,5 +89,9 @@ export class AccountDetailsComponent {
       console.error('ID utente non trovato');
       this.toastNotificationService.showToast('ID utente non trovato', 'error');
     }
+  }
+
+  test(): void {
+    console.log('Mostra l\'ID corrente:', this.userId);
   }
 }

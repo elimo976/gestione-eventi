@@ -10,6 +10,7 @@ import { SharedModule } from '../shared/shared.module';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AccountDetailsComponent } from './account-details/account-details.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AccountEditComponent } from './account-edit/account-edit.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     LoginComponent,
     RegisterComponent,
     WelcomeComponent,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    AccountEditComponent
   ],
   imports: [
     CommonModule,

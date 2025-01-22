@@ -21,6 +21,22 @@ export class UserService {
     return this.http.get<User>(`${this.apiUrl}/${userId}`);
   }
 
+  updateUser(userId: string, updateData: Partial<User>): Observable<User> {
+    if (!userId) {
+      console.error('ID utente non valido');
+      return throwError(() => new Error('ID utente non valido'));
+    }
+    return this.http.patch<User>(`${this.apiUrl}/profile/${userId}`, updateData).pipe(
+      tap(updateData => {
+        console.log('Profilo aggiornato con successo', this.updateUser);
+      }),
+      catchError(error => {
+        console.error('Errore durante l\'aggiornamento del profilo:', error);
+        return throwError(() => new Error('Impossibile aggiornare il profilo'));
+      })
+    );
+  }
+
   deleteUser(id: string): Observable<any> {
     return this.http.delete<any>(`${this.apiUrl}/${id}`).pipe(
       tap(() => {
@@ -31,5 +47,9 @@ export class UserService {
         return throwError(() => new Error('Impossibile eliminare l\'utente'));
       })
     );
+  }
+
+  getAvatars(): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.BASE_URL}/avatars`);
   }
 }
