@@ -57,7 +57,6 @@ export class AuthService {
     }
   }
 
-
   register(user: RegisterUserDto): Observable<{ accessToken?: string; message: string }> {
     return this.http.post<{ accessToken?: string; message: string }>(`${this.apiUrlAuth}/register`, user).pipe(
       tap(response => {

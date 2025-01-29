@@ -12,6 +12,8 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   errorMessage: string | null = null;
+  showPassword: boolean = false;
+
 
   constructor(
     private authService: AuthService,
@@ -33,11 +35,17 @@ export class LoginComponent implements OnInit {
     }
   }
 
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
   toggleRole() {
     const currentRole = this.loginForm.get('role')!.value;
     this.loginForm.get('role')!.setValue(!currentRole);
     console.log('Role toggled to:', !currentRole);
   }
+
   login(): void {
     if (this.loginForm.invalid) {
       this.errorMessage = 'Inserisci un\'email e una password validi.';
@@ -45,6 +53,7 @@ export class LoginComponent implements OnInit {
     }
 
     const { email, password } = this.loginForm.value;
+
     const loginUser: LoginUser = { email, password };
     const rememberMe = this.loginForm.get('rememberMe')!.value;
 

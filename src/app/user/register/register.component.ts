@@ -17,6 +17,8 @@ export class RegisterComponent {
   registerForm: FormGroup;
   toastMessage: string ='';
   showToast: boolean = false;
+  showPassword: boolean = false;
+  showConfirmPassword: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -32,6 +34,12 @@ export class RegisterComponent {
       role: new FormControl(false),
       termsAccepted: new FormControl(false, requiredTrueValidator())
     }, { validators: passwordMatchValidator() }); // Passa la funzione del validatore
+  }
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+  toggleConfirmPasswordVisibility() {
+    this.showConfirmPassword = !this.showConfirmPassword;
   }
 
   toggleRole() {

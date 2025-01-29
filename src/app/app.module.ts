@@ -15,7 +15,7 @@ import { EventsPreviewComponent } from './components/events-preview/events-previ
 import { FooterComponent } from './components/footer/footer.component';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFacebookF, faXTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
-import { faChevronRight, faArrowRightFromBracket, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faArrowRightFromBracket, faPhoneAlt, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EventsModule } from './events/events.module';
@@ -55,7 +55,7 @@ import { SharedModule } from "./shared/shared.module";
 })
 export class AppModule {
   constructor(library: FaIconLibrary) {
-    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight, faArrowRightFromBracket, faPhoneAlt);
+    library.addIcons(faFacebookF, faXTwitter, faInstagram, faLinkedinIn, faChevronRight, faArrowRightFromBracket, faPhoneAlt, faEye, faEyeSlash);
 
     registerLocaleData(localeIt, 'it');
   }

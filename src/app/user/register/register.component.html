@@ -53,33 +53,62 @@
                     Inserisci un'email valida.
                 </div>
             </div>
+            <!-- PASSWORD -->
             <div class="relative mb-6">
-                <label for="password" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Crea una password"
-                    formControlName="password"
-                    class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
-                />
-                <!-- Messaggio di errore per la password -->
-                <div *ngIf="formControls['password'].errors?.['required'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
-                    La password è richiesta.
-                </div>
-                <div *ngIf="formControls['password'].errors?.['passwordStrength'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
-                    La password deve contenere almeno 8 caratteri, una lettera maiuscola, un numero e un carattere speciale.
-                </div>
-                
+              <!-- Label senza position absolute -->
+              <label for="password" class="block text-sm font-medium text-petrol-dark">Password</label>
+
+              <!-- Campo password -->
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                placeholder="Crea una password"
+                formControlName="password"
+                class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
+              />
+
+              <!-- Icona per il toggle della visibilità della password -->
+              <button
+                type="button"
+                (click)="togglePasswordVisibility()"
+                class="absolute top-6 right-4 flex items-center group"
+              >
+                <fa-icon [icon]="showPassword ? 'eye-slash' : 'eye'" class="text-gray-400 text-2xl hover:text-gray-500"></fa-icon>
+                <span class="absolute bottom-8 right-0 hidden text-sm text-gray-600 group-hover:block bg-white px-2 py-1 rounded shadow-md">
+                  {{ showPassword ? 'Nascondi password' : 'Mostra password' }}
+                </span>
+              </button>
+
+              <!-- Messaggio di errore per la password -->
+              <div *ngIf="formControls['password'].errors?.['required'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
+                La password è richiesta.
+              </div>
+              <div *ngIf="formControls['password'].errors?.['passwordStrength'] && formControls['password'].touched" class="mt-2 text-red-600 text-sm">
+                La password deve contenere almeno 8 caratteri, una lettera maiuscola, un numero e un carattere speciale.
+              </div>
             </div>
+            <!-- CONFERMA PASSWORD -->
             <div class="relative mb-8">
                 <label for="confirm-password" class="absolute -top-3 left-4 bg-white px-1 text-sm font-medium text-petrol-dark">Conferma Password</label>
                 <input
-                    type="password"
+                    [type]="showConfirmPassword ? 'text' : 'password'"
                     id="confirm-password"
                     placeholder="Conferma la tua password"
                     formControlName="confirmPassword"
                     class="w-full px-4 py-2 border border-petrol-light rounded-lg focus:outline-none focus:ring-2 focus:ring-petrol"
                 />
+                <!-- Icona per il toggle della visibilità della password -->
+                <button
+                type="button"
+                (click)="toggleConfirmPasswordVisibility()"
+                class="absolute top-1 right-4 flex items-center group"
+                >
+                <fa-icon [icon]="showConfirmPassword ? 'eye-slash' : 'eye'" class="text-gray-400 text-2xl hover:text-gray-500"></fa-icon>
+                <span class="absolute bottom-8 right-0 hidden text-sm text-gray-600 group-hover:block bg-white px-2 py-1 rounded shadow-md">
+                  {{ showConfirmPassword ? 'Nascondi password' : 'Mostra password' }}
+                </span>
+                </button>
+
                 <!-- Messaggio di errore per la conferma della password -->
                 <div *ngIf="registerForm.hasError('mismatch') && formControls['confirmPassword'].touched" class="mt-2 text-red-600 text-sm">
                     Le password non corrispondono.
@@ -88,15 +117,15 @@
             <div class="flex items-center mb-6">
                 <span class="mr-2 text-petrol-dark">Ruolo:</span>
                 <label class="relative inline-flex items-center cursor-pointer">
-                    <input 
-                        type="checkbox" 
-                        formControlName="role" 
-                        class="sr-only" 
-                        (click)="toggleRole()" 
+                    <input
+                        type="checkbox"
+                        formControlName="role"
+                        class="sr-only"
+                        (click)="toggleRole()"
                     />
                     <div class="w-11 h-6 bg-petrol rounded-full transition duration-200 ease-in-out" [class.bg-petrol-dark]="registerForm.get('role')!.value">
-                        <span 
-                            class="absolute left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300" 
+                        <span
+                            class="absolute left-0 w-6 h-6 bg-white rounded-full shadow transform transition-transform duration-300"
                             [ngClass]="{'translate-x-5': registerForm.get('role')!.value}">
                         </span>
                     </div>
