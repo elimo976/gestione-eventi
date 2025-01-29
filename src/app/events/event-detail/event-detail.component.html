@@ -7,8 +7,8 @@
     <p class="text-gray-600 mb-2">{{ eventDetail.venues[0].name }}</p>
     <p class="text-gray-600 mb-2">{{ eventDetail.venues[0].city.name }}</p>
     <ng-container *ngIf="eventDetail.price && eventDetail.price.length > 0">
-        <p *ngFor="let p of eventDetail.price" class="text-gray-600 mb-2">
-          {{ p.type === 'standard including fees' ? 'Prezzi tasse incluse' : 'Prezzi tasse escluse' }}: da {{ p.min | currency:p.currency:'symbol' }} a {{ p.max | currency:p.currency:'symbol' }}
+        <p *ngFor="let p of eventDetail.price" class="text-gray-600 mb-2">Prezzi
+          <span>{{ p.type === 'standard including fees' ? 'tasse incluse' : 'standard' }}: da {{ p.min | currency:p.currency:'symbol' }} a {{ p.max | currency:p.currency:'symbol' }}</span>
         </p>
     </ng-container>
     <p *ngIf="eventDetail.price.length === 0" class="text-gray-600 mb-2">Prezzo non disponibile</p>
@@ -18,16 +18,16 @@
         {{ eventDetail.totalTickets > 0 ? eventDetail.totalTickets : 'Biglietti esauriti' }}
       </span>
     </p>
-    
+
     <div class="flex flex-col lg:mt-10 md:mt-0">
-      <button 
+      <button
         class="bg-petrol-light text-white font-semibold py-2 rounded shadow hover:bg-petrol-dark transition duration-300"
       >
         Acquista
       </button>
     </div>
   </div>
-  
+
   <div *ngIf="eventDetail" class="flex-1 md:mt-0 mt-4">
     <img src="{{ eventDetail.imageUrl }}" alt="{{ eventDetail.title }}" class="w-full h-auto object-cover rounded-lg">
   </div>
